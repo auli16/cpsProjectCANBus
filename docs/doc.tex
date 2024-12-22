@@ -1,16 +1,32 @@
-\documentclass[12 pt]{article}
+\documentclass[12pt]{article}
+\usepackage[backend=bibtex,style=numeric]{biblatex} 
+\addbibresource{references.bib} 
 
-\title{Report for the CPS mid-course project}
-\subtitle{Reference paper: Fingerprinting Electronic Control Units for Vehicle Intrusion Detection}
+\title{Report for the CPS Mid-Course Project}
 \author{
-    Andrea Auletta: andrea.auletta@studenti.unipd.it
-    \and
-    Niccolò Zenaro: niccolo.zenaro@studenti.unipd.it
+    Andrea Auletta \\ \texttt{andrea.auletta@studenti.unipd.it} \and
+    Niccolò Zenaro \\ \texttt{niccolo.zenaro@studenti.unipd.it}
 }
-\newpage
-\makeindex
 \begin{document}
+
 \maketitle
+\newpage
 \tableofcontents
 \newpage
+
+\section{Introduction and objectives}
+In this report we will describe the work done for the mid-course project of the course Cyber-Physical Systems and IoT security. 
+The paper to which we refer is \textbf{\cite{Cho2016} \citetitle{Cho2016}} where is explained the design of an algorithm: the CIDS (Clock-based Intrusion Detection System), that is able to detect different kinds of attack. In this paper is shown the functioning of three kinds of attack: the "Fabbrication attack", the "Suspension attack" and the "Masquerade attack". What we tried to do was to implement the three attacks and the CIDS algorithm in a simulation environemnt using \textbf{ICSim}, instead of physically as shown in the paper.
+\section{System setup}
+We worked on a virtual machine with \textbf{LinuxMint22} as operating system.
+The simulator used is \textbf{ICSim}. All the code is written in \textbf{Python} and can be found at the following link: .% \url{}
+We used the \textbf{can library} to create messages and to simulate the communication of the attackers with the ECUs.
+\section{Experiments}
+\subsection{Fabbrication attack}
+\subsection{Suspension attack}
+\subsection{Masquerade attack}
+\subsection{CIDS algorithm}
+\section{Results and Discussion}
+\printbibliography 
+
 \end{document}
