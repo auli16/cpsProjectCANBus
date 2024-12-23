@@ -57,7 +57,7 @@ for msg_id, timestamps in timestamps_by_id.items():
 #print(f"Offsets by id: {offsets_by_id[392]}")
 
 #RLS algorithm for clock skew estimation
-def rls_updateAlgo (ClockOffset_accum, time, skew_prev, cov_prev, lambda_val = 0.9995):
+def rls_updateAlgo (ClockOffset_accum, time, skew_prev, cov_prev, lambda_val = 0.9995): #lambda or "forget factor" is said to be 0.9995 
     time = np.array([[time]])
     G = lambda_val ** -1 * cov_prev @ time / (1 + lambda_val ** -1 * time.T @ cov_prev @ time)
     skew = skew_prev + G.flatten()[0] * (ClockOffset_accum - time.T @ skew_prev)
@@ -66,13 +66,33 @@ def rls_updateAlgo (ClockOffset_accum, time, skew_prev, cov_prev, lambda_val = 0
     return skew, cov
 
 #print(f"Type: {type(timestamps_by_id[392])}")
-
+#timestampsVal = list(timestamps_by_id.values())
+#print(timestampsVal)
 timestamps = np.array(timestamps_by_id[392], dtype=np.float64)
-
 offsets = offsets_by_id[392]
 cov = np.array([[1.0]])
 skew = np.array([[0.0]])
 
-for timestamps, accum_offset in zip(timestamps, offsets):
-    skew, cov = rls_updateAlgo(accum_offset, timestamps, skew, cov)
+residuals = []
+
+for timestamp, accum_offset in zip(timestamps, offsets):
+    skew, cov = rls_updateAlgo(accum_offset, timestamp, skew, cov)
+    residual = accum_offset - timestamp * skew
+    residuals.append(residual)
     print(f"Updated skew: {skew}")
+
+#the intrusion is detected monitoring the deviation of clock skew
+
+def cumsum (res_err, mean, std_dev, thr): #threshold is said to be 4 or 5
+    return max(0, res_err - mean - thr * std_dev)
+
+#print(f"Type: {type(offsets)}")
+#print(f"Type: {type(timestamps)}")
+
+threshold = 5
+Csum = 0
+for res in residuals:
+    Csum = cumsum(res, np.mean(residuals), np.std(residuals), threshold)
+    if Csum > 5:
+        print(f"Intrusion detected! Csum: {Csum}")
+        
