@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex doc"] 1734950217 "doc.aux" "doc.bbl" "doc" 1734951840 0
-  "./doc-blx.bib" 1734951838 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
+["bibtex doc"] 1734956175 "doc.aux" "doc.bbl" "doc" 1734956300 0
+  "./doc-blx.bib" 1734956298 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
   "./references.bib" 1734883206 1782 4d3fc731d3069a503702f1d23c8431fb ""
   "c:/texlive/2023/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1685177287 65484 b7949c47a88ed6dca66ebc7a04577312 ""
-  "doc.aux" 1734951838 1337 b1a6ad2aec1f4fb0ece0f7d028d0b7b9 "pdflatex"
+  "doc.aux" 1734956298 1337 b1a6ad2aec1f4fb0ece0f7d028d0b7b9 "pdflatex"
   (generated)
   "doc.bbl"
   "doc.blg"
   (rewritten before read)
-["pdflatex"] 1734951836 "c:/Users/andre/OneDrive/Desktop/Università/magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1734951840 0
-  "c:/Users/andre/OneDrive/Desktop/Università/magistrale/cpsProjectCANBus/docs/doc.tex" 1734951835 2910 3b73e8a74c53c741ff207696f8d43c7f ""
+["pdflatex"] 1734956296 "c:/Users/andre/OneDrive/Desktop/Università/magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1734956300 0
+  "c:/Users/andre/OneDrive/Desktop/Università/magistrale/cpsProjectCANBus/docs/doc.tex" 1734956294 3291 c12570c139e1cc9e3697d088034979e1 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1685179883 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1685178044 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1685178044 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -61,11 +61,11 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1685187427 4683009 81ac55e6554f9124653631026fb1fc4e ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1685187568 7892137 ec4a476bd5ac6cdd75d9ccf714578f30 ""
   "c:/texlive/2023/texmf.cnf" 1685187386 713 614551405fc44b98efbf516466e3c909 ""
-  "doc.aux" 1734951838 1337 b1a6ad2aec1f4fb0ece0f7d028d0b7b9 "pdflatex"
-  "doc.bbl" 1734950217 2930 bae1e3c99a589fb092daed3a06a4e891 "bibtex doc"
-  "doc.run.xml" 1734951838 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
-  "doc.tex" 1734951835 2910 3b73e8a74c53c741ff207696f8d43c7f ""
-  "doc.toc" 1734951838 535 7b5c3c6b0ac3e5d2ea9b50898d99fee2 "pdflatex"
+  "doc.aux" 1734956298 1337 b1a6ad2aec1f4fb0ece0f7d028d0b7b9 "pdflatex"
+  "doc.bbl" 1734956176 2930 bae1e3c99a589fb092daed3a06a4e891 "bibtex doc"
+  "doc.run.xml" 1734956298 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
+  "doc.tex" 1734956294 3291 c12570c139e1cc9e3697d088034979e1 ""
+  "doc.toc" 1734956298 535 7b5c3c6b0ac3e5d2ea9b50898d99fee2 "pdflatex"
   (generated)
   "doc-blx.bib"
   "doc.aux"
