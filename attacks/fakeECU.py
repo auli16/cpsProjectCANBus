@@ -4,7 +4,7 @@ import time
 CAN_INTERFACE = "vcan0"
 ID = 0x19b  
 
-def weak_ecu(bus):
+def periodic_ecu(bus):
   
     door_open = True  
     
@@ -15,20 +15,19 @@ def weak_ecu(bus):
             
             bus.send(msg)
             status_text = "Open" if door_open else "Closed"
-            print(f"Weak ECU: porta {status_text} (ID: {ID:#X}, data: {door_status})")
+            print(f"Periodic ECU: door {status_text} (ID: {ID:#X}, data: {door_status})")
             
             door_open = not door_open
             
-            # The message will be sent every two seconds
             time.sleep(2)
     
     except KeyboardInterrupt:
-        print("Weak ECU interrotto.")
+        print("Periodic ECU interrupted.")
     except can.CanError as e:
-        print(f"Errore CAN: {e}")
+        print(f"Error CAN: {e}")
 
 
 if __name__ == "__main__":
     with can.interface.Bus(channel="vcan0", bustype="socketcan") as bus:
-        weak_ecu(bus)
+        periodic_ecu(bus)
 
