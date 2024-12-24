@@ -142,8 +142,8 @@ INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
 OUTPUT doc.toc
-INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT doc.aux
 INPUT doc.run.xml
 OUTPUT doc.run.xml
