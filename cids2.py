@@ -3,7 +3,7 @@ import sys
 import numpy as np
 
 # Path del file log
-log_file = "dump/dump_susp.log"
+log_file = "dump/dump_masq.log"
 
 # Verifica se il file esiste
 if not os.path.isfile(log_file):
@@ -33,7 +33,9 @@ offsets_by_id = {}
 for msg_id, timestamps in timestamps_by_id.items():
     if len(timestamps) < 2:
         continue
+
     timestamps = np.array(timestamps, dtype=np.float64)
+
     arrival_times = np.diff(timestamps)
     average_interarrival_time = np.mean(arrival_times)
     expected_time = timestamps[0] + np.arange(len(timestamps)) * average_interarrival_time
@@ -51,7 +53,6 @@ def rls_update_algo(clock_offset_accum, time, skew_prev, cov_prev, lambda_val=0.
 def cusum_control(e, mu_e, sigma_e, L_pos, L_neg, kappa):
     sigma_e = max(sigma_e, 1e-3)
 
-
     z_score = (e - mu_e) / sigma_e
 
     # Aggiornamento L+ e L-
@@ -61,27 +62,26 @@ def cusum_control(e, mu_e, sigma_e, L_pos, L_neg, kappa):
     return L_pos, L_neg
 
 threshold = 5  # Maggiore per ridurre falsi positivi
-kappa = 2  # Più sensibile al rumore
+kappa = 3  # Più sensibile al rumore
 
 for msg_id, offsets in offsets_by_id.items():
     timestamps = np.array(timestamps_by_id[msg_id], dtype=np.float64)
+
     cov = np.array([[1.0]])
     skew = np.array([[0.0]])
     residuals = []
 
     # Inizializzazione di CUSUM
-    if len(offsets) > 0:
-        mu_e = np.mean(offsets[:min(10, len(offsets))])  # Calcolo iniziale su primi valori
-        sigma_e = np.std(offsets[:min(10, len(offsets))])
-    else:
-        mu_e = 0
-        sigma_e = 1
+    window_size = 10
+    recent_offsets = offsets[-window_size:] if len(offsets) >= window_size else offsets
+    mu_e = np.mean(recent_offsets)
+    sigma_e = np.std(recent_offsets)
 
     L_pos = 0
     L_neg = 0
     intrusion_detected = False  # Flag per evitare duplicati
 
-    for timestamp, accum_offset in zip(timestamps, offsets):
+    for timestamp, accum_offset in zip(timestamps, offsets):  # Senza il filtro sui timestamp
         skew, cov = rls_update_algo(accum_offset, timestamp, skew, cov)
         residual = accum_offset - timestamp * skew
         residuals.append(residual)
@@ -90,12 +90,10 @@ for msg_id, offsets in offsets_by_id.items():
         # print(f"ID: {msg_id}, Residual: {residual}, Mu_e: {mu_e}, Sigma_e: {sigma_e}, L_pos: {L_pos}, L_neg: {L_neg}")
 
         # Aggiornamento di mu_e e sigma_e se il valore è normale
-        if sigma_e == 0:
-            sigma_e = 1e-6  # Prevenzione divisione per zero
-
         if abs((residual - mu_e) / sigma_e) < 3:
-            mu_e = np.mean(offsets[:10]) if len(offsets) >= 10 else np.mean(offsets)
-            sigma_e = np.std(offsets[:10]) if len(offsets) >= 10 else np.std(offsets)
+            recent_offsets = offsets[-window_size:] if len(offsets) >= window_size else offsets
+            mu_e = np.mean(recent_offsets)
+            sigma_e = np.std(recent_offsets)
 
         # Aggiornamento di L+ e L-
         if abs(residual - mu_e) > 0.1 * sigma_e:  # Soglia basata sulla deviazione standard
@@ -106,6 +104,6 @@ for msg_id, offsets in offsets_by_id.items():
             print(f"Intrusion detected! ID: {msg_id}, L_pos: {L_pos}, L_neg: {L_neg}")
             intrusion_detected = True  # Imposta il flag
             break
+
     if not intrusion_detected:
         print(f"No intrusion detected for ID: {msg_id}")
-

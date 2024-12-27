@@ -5,7 +5,7 @@ import numpy as np
 #import scipy as sp
 
 
-log_file = "dump/dump_fabr.log"
+log_file = "dump/noAttackDump.log"
 
 if not os.path.isfile(log_file):
     print(f"Error: {log_file} does not exist.")
