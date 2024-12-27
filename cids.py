@@ -31,7 +31,7 @@ with open (log_file) as f:
         timestamps_by_id[msg_id].append(timestamp)  
 #print(f"Timestamps by id: {timestamps_by_id[392]}")        
 
-#calculate offsets of timestamps by id, discard ids with less than 2 timestamps
+#calculate offsets of timestamps by id, discard IDs with less than 2 timestamps
 offsets_by_id = {}
 
 for msg_id, timestamps in timestamps_by_id.items():

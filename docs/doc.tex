@@ -30,6 +30,7 @@ In the Suspension attack we are trying to stop the receiving of messages sent by
 \subsection{Masquerade attack}
 In the Masquerade attack we are trying to send messages with the ID of the legitimate ECUs. The idea here is that we have to shield the fact that an ECU is compromised. After running the weak ecu script, the attacker will listen the CAN bus for 20 seconds, in this way it can calculate the period of the messages sent by the weak ECU and then it will send messages with the same ID and the same period. We decided to send a message to open different doors with respect to the ones opened by the weak ECU, and this can be seen at simulation time.
 \subsection{CIDS algorithm}
+CIDS is a new type of Intrusion Detection System (IDS) that is Clock-based. The algotithm measures and exploits the interval of periodic messages for fingerprinting ECUs. These fingerprints are then used for deriving a clock-behavioural scheme obtained by the Recursive Least Squares (RLS) algorithm. RLS is applied to timestamps and their offsets to derive covariance and skewness. Based on this scheme, CIDS uses the cumulative sum to detect shifts in the clock skew, in fact the intrusion is detected monitoring this parameter.
 \section{Results and Discussion}
 \printbibliography 
 
