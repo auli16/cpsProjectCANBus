@@ -3,7 +3,7 @@ import sys
 import numpy as np
 
 # Path del file log
-log_file = "dump/dump_masq.log"
+log_file = "dump/dump_susp.log"
 
 # Verifica se il file esiste
 if not os.path.isfile(log_file):
@@ -60,13 +60,10 @@ def cusum_control(e, mu_e, sigma_e, L_pos, L_neg, kappa):
 
     return L_pos, L_neg
 
-threshold = 4  # Maggiore per ridurre falsi positivi
+threshold = 5  # Maggiore per ridurre falsi positivi
 kappa = 2  # Più sensibile al rumore
 
-# Elaborazione specifica per l'ID 411
-msg_id = 149
-if msg_id in offsets_by_id:
-    offsets = offsets_by_id[msg_id]
+for msg_id, offsets in offsets_by_id.items():
     timestamps = np.array(timestamps_by_id[msg_id], dtype=np.float64)
     cov = np.array([[1.0]])
     skew = np.array([[0.0]])
@@ -82,14 +79,15 @@ if msg_id in offsets_by_id:
 
     L_pos = 0
     L_neg = 0
+    intrusion_detected = False  # Flag per evitare duplicati
 
     for timestamp, accum_offset in zip(timestamps, offsets):
         skew, cov = rls_update_algo(accum_offset, timestamp, skew, cov)
         residual = accum_offset - timestamp * skew
         residuals.append(residual)
 
-        # Debugging
-        print(f"Residual: {residual}, Mu_e: {mu_e}, Sigma_e: {sigma_e}, L_pos: {L_pos}, L_neg: {L_neg}")
+        # Debugging opzionale
+        # print(f"ID: {msg_id}, Residual: {residual}, Mu_e: {mu_e}, Sigma_e: {sigma_e}, L_pos: {L_pos}, L_neg: {L_neg}")
 
         # Aggiornamento di mu_e e sigma_e se il valore è normale
         if sigma_e == 0:
@@ -99,16 +97,15 @@ if msg_id in offsets_by_id:
             mu_e = np.mean(offsets[:10]) if len(offsets) >= 10 else np.mean(offsets)
             sigma_e = np.std(offsets[:10]) if len(offsets) >= 10 else np.std(offsets)
 
-
         # Aggiornamento di L+ e L-
         if abs(residual - mu_e) > 0.1 * sigma_e:  # Soglia basata sulla deviazione standard
             L_pos, L_neg = cusum_control(residual, mu_e, sigma_e, L_pos, L_neg, kappa)
 
         # Verifica intrusioni
-        if L_pos > threshold or L_neg > threshold:
+        if not intrusion_detected and (L_pos > threshold or L_neg > threshold):
             print(f"Intrusion detected! ID: {msg_id}, L_pos: {L_pos}, L_neg: {L_neg}")
-            L_pos = 0
-            L_neg = 0
+            intrusion_detected = True  # Imposta il flag
             break
-else:
-    print(f"ID {msg_id} not found in the data.")
+    if not intrusion_detected:
+        print(f"No intrusion detected for ID: {msg_id}")
+
