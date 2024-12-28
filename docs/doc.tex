@@ -93,7 +93,10 @@ We've got 4 dump files of the CAN bus messages:
     \item \textit{dump\_masq.log}: this is the dump of the CAN bus messages with the Masquerade attack. 32/37 ID are detected 
     as compromised. Also the ID of interest is detected as compromised (419 = 0x19B).
 \end{itemize}
-
+The results are not like the expected ones, but we think that the problem is due to the fact that the we had problem 
+with the precision of the timestamps and the periodicity of the messages. A factor to keep in mind is that the dump without 
+attacks had a lower number of ID detected as compromised, and this can be used as a reference to understand if the 
+system is under attack or not.
 \printbibliography 
 
 \end{document}
