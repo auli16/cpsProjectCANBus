@@ -58,8 +58,9 @@ exploits the interval of periodic messages for fingerprinting ECUs. These finger
 deriving a clock-behavioural scheme obtained by the Recursive Least Squares (RLS) algorithm. RLS is 
 applied to timestamps and their offsets to derive covariance and skewness. Based on this scheme, 
 CIDS uses the cumulative sum to detect shifts in the clock skew, in fact the intrusion is detected 
-monitoring this parameter. We worked direcly on the dumps of the CAN bus messages obtained through the command 
-\textit{candump -l vcan0}.
+monitoring this parameter. We worked direcly on the dumps of the CAN bus messages obtained through 
+the command \textit{candump -l vcan0}. In each dump file we used \textit{fakeECU.py} to send periodic 
+messages from the ECU \textit{0x19B}
 In the file \textit{cids.py} we implemented the algorithm, this is composed by several 
 parts:
 \begin{enumerate}
@@ -71,32 +72,39 @@ parts:
     and the skew;
     \item CUSUM algorithm: we've implemented the CUSUM algorithm to detect the intrusion. 
 \end{enumerate}
-The result at the end is the list of ID of the ECUs with an indication which says if the ECU is compromised.
+Given the Id in which we are interested, as return we will get an indication of whether the ECU is
+compromised or not.
 \section{Results and Discussion}
 As said before we've implemented the three attacks and the CIDS algorithm in a simulation environment.
 We've taken different dumps of the CAN bus messages and we've analyzed them with the CIDS algorithm. 
-The main problem we've encountered is that the CIDS algorithm detected intrusion also on the ID which are not 
-target of the attack, probably this is due to the fact that in the simulation, by sendind a certain quantity of messages 
-the timestamps are not so precise and will be shifted of a certain quantity of time, in this way the periodicity 
-of the messages is not respected and the CIDS algorithm will detect an intrusion. We tried also to 
-change and tune the parameters like the threshold and the k value for to try to give more or less tolerance on 
-the offsets but didn't work as expected.
+The parameters we used are the following:
+\begin{itemize}
+    \item The threshold for the CUSUM algorithm is set to 5, it is used to understand if we can consider a certain 
+    value as an intrusion or not;
+    \item kappa is a value which also is used to make the system more or less sensitive to the offsets.
+\end{itemize}
 We've got 4 dump files of the CAN bus messages:
 \begin{itemize}
-    \item \textit{noAttackDump.log}: this is the dump of the CAN bus messages without any attack. 
-    Here we found out that with reference to the other dump file with the attack, the number of the ID with no intrusion 
-    detected is quite lower (20/36 have intrusion detected);
-    \item \textit{dump\_fabr.log}: this is the dump of the CAN bus messages with the Fabbrication attack. Here 33/34 ID are 
-    detected as compromised. Also the ID of interest is detected as compromised (419 = 0x19B);
-    \item \textit{dump\_susp.log}: this is the dump of the CAN bus messages with the Suspension attack. 25/36 ID are detected 
-    as compromised. Also the ID of interest is detected as compromised (392 = 0x188);
-    \item \textit{dump\_masq.log}: this is the dump of the CAN bus messages with the Masquerade attack. 32/37 ID are detected 
-    as compromised. Also the ID of interest is detected as compromised (419 = 0x19B).
+    \item \textit{dump\_noAttack.log}: this is the dump of the CAN bus messages without any attack. The algorithm 
+    didn't detect any intrusion for the ID of interest (419 = 0x19B);
+    \item \textit{dump\_fabr.log}: this is the dump of the CAN bus messages with the Fabbrication attack. The ID 
+    of interest is detected as compromised (419 = 0x19B);
+    \begin{center}
+        Intrusion detected! ID: 411, $L_{pos}$: [[5.6255332]], $L_{neg}$: 0
+    \end{center}
+    \item \textit{dump\_susp.log}: this is the dump of the CAN bus messages with the Suspension 
+    attack. The ID of interest is detected as compromised (392 = 0x188);
+    \begin{center}
+        Intrusion detected! ID: 392, $L_{pos}$: [[5.50396227]], $L_{neg}$: 0
+    \end{center}
+    \item \textit{dump\_masq.log}: this is the dump of the CAN bus messages with the Masquerade attack. 
+    The ID of interest is detected as compromised (419 = 0x19B), in this case with a lower value 
+    of L with respect to the Fabbrication attack. 
+    \begin{center}
+        Intrusion detected! ID: 411, $L_{pos}$: [[5.15998911]], $L_{neg}$: 0
+    \end{center}
 \end{itemize}
-The results are not like the expected ones, but we think that the problem is due to the fact that the we had problem 
-with the precision of the timestamps and the periodicity of the messages. A factor to keep in mind is that the dump without 
-attacks had a lower number of ID detected as compromised, and this can be used as a reference to understand if the 
-system is under attack or not.
+
 \printbibliography 
 
 \end{document}

@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex doc"] 1735388858 "doc.aux" "doc.bbl" "doc" 1735389935 0
-  "./doc-blx.bib" 1735389934 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
+["bibtex doc"] 1735411172 "doc.aux" "doc.bbl" "doc" 1735411382 0
+  "./doc-blx.bib" 1735411380 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
   "./references.bib" 1735052263 1782 4d3fc731d3069a503702f1d23c8431fb ""
   "C:/Program Files/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1679055682 65484 b7949c47a88ed6dca66ebc7a04577312 ""
-  "doc.aux" 1735389934 1337 c8de2a1212f4fcb2f6a2101163a48528 "pdflatex"
+  "doc.aux" 1735411380 1337 c8de2a1212f4fcb2f6a2101163a48528 "pdflatex"
   (generated)
   "doc.bbl"
   "doc.blg"
   (rewritten before read)
-["pdflatex"] 1735389933 "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1735389935 0
+["pdflatex"] 1735411379 "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1735411382 0
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1200.tfm" 993062508 1444 95ffe0f19b974d50849790c8225c7ef7 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmbx12.tfm" 1136765053 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -24,6 +24,8 @@
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmti12.tfm" 1136765053 1484 ed72f8f5cf654cda15ecc8e32bfcbee5 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmtt12.tfm" 1136765053 772 9a936b7f5e2ff0557fce0f62822f0bbf ""
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1247596666 32080 340ef9bf63678554ee606688e7b5339d ""
+  "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1247596667 36741 0ee9e374ec3e30da87cdfb0ea3575226 ""
+  "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1247596666 35469 dcf3a5f2fc1862f5952e3ee5eb1d98c4 ""
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1247596666 32362 bc3f3eec7ab7d65fe700963d4017d32c ""
   "C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1247596667 36118 fad905eba93cff5bce1e185fe980a177 ""
@@ -59,12 +61,12 @@
   "C:/Users/User/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1704129212 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/User/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1707070132 14064 ed4998ff241d51259a76bc7f2b1bf06a ""
   "C:/Users/User/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1704129614 24214252 cc690f832350213b62e49e8eecd65268 ""
-  "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" 1735389932 7144 776ba87139fffc7e1645c461d02cc1cc ""
-  "doc.aux" 1735389934 1337 c8de2a1212f4fcb2f6a2101163a48528 "pdflatex"
-  "doc.bbl" 1735388858 3046 3f0ddf98d498f18631e76a47ecffaa2b "bibtex doc"
-  "doc.run.xml" 1735389934 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
-  "doc.tex" 1735389932 7144 776ba87139fffc7e1645c461d02cc1cc ""
-  "doc.toc" 1735389934 535 bf3316e6f2a97f4693516be5975d7d11 "pdflatex"
+  "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" 1735411378 6791 aa545f7305ce2dfc899580736fd134dc ""
+  "doc.aux" 1735411380 1337 c8de2a1212f4fcb2f6a2101163a48528 "pdflatex"
+  "doc.bbl" 1735411172 3046 3f0ddf98d498f18631e76a47ecffaa2b "bibtex doc"
+  "doc.run.xml" 1735411380 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
+  "doc.tex" 1735411378 6791 aa545f7305ce2dfc899580736fd134dc ""
+  "doc.toc" 1735411380 535 bf3316e6f2a97f4693516be5975d7d11 "pdflatex"
   (generated)
   "doc-blx.bib"
   "doc.aux"
