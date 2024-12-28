@@ -2,15 +2,15 @@ import os
 import sys
 import numpy as np
 
-# Path del file log
+# file log path 
 log_file = "dump/dump_masq.log"
 
-# Verifica se il file esiste
+# existance check
 if not os.path.isfile(log_file):
     print(f"Error: {log_file} does not exist.")
     sys.exit(1)
 
-# Lettura del file log
+# reading log file
 timestamps_by_id = {}
 with open(log_file) as f:
     for line in f:
@@ -28,7 +28,7 @@ with open(log_file) as f:
             timestamps_by_id[msg_id] = []
         timestamps_by_id[msg_id].append(timestamp)
 
-# Calcolo degli offset
+# offset
 offsets_by_id = {}
 for msg_id, timestamps in timestamps_by_id.items():
     if len(timestamps) < 2:
@@ -41,7 +41,7 @@ for msg_id, timestamps in timestamps_by_id.items():
     expected_time = timestamps[0] + np.arange(len(timestamps)) * average_interarrival_time
     offsets_by_id[msg_id] = timestamps - expected_time
 
-# Algoritmo RLS
+# RLS
 def rls_update_algo(clock_offset_accum, time, skew_prev, cov_prev, lambda_val=0.9995):
     time = np.array([[time]])
     G = lambda_val ** -1 * cov_prev @ time / (1 + lambda_val ** -1 * time.T @ cov_prev @ time)
@@ -49,20 +49,19 @@ def rls_update_algo(clock_offset_accum, time, skew_prev, cov_prev, lambda_val=0.
     cov = lambda_val ** -1 * (cov_prev - G @ time.T @ cov_prev)
     return skew, cov
 
-# Calcolo skew e rilevamento intrusioni con CUSUM
+# skew and CUSUM
 def cusum_control(e, mu_e, sigma_e, L_pos, L_neg, kappa):
     sigma_e = max(sigma_e, 1e-3)
 
     z_score = (e - mu_e) / sigma_e
 
-    # Aggiornamento L+ e L-
     L_pos = max(0, L_pos + z_score - kappa)
     L_neg = max(0, L_neg - z_score - kappa)
 
     return L_pos, L_neg
 
-threshold = 5  # Maggiore per ridurre falsi positivi
-kappa = 3  # Più sensibile al rumore
+threshold = 5  
+kappa = 3 
 
 for msg_id, offsets in offsets_by_id.items():
     timestamps = np.array(timestamps_by_id[msg_id], dtype=np.float64)
@@ -71,7 +70,7 @@ for msg_id, offsets in offsets_by_id.items():
     skew = np.array([[0.0]])
     residuals = []
 
-    # Inizializzazione di CUSUM
+    # CUSUM initialization
     window_size = 10
     recent_offsets = offsets[-window_size:] if len(offsets) >= window_size else offsets
     mu_e = np.mean(recent_offsets)
@@ -79,30 +78,26 @@ for msg_id, offsets in offsets_by_id.items():
 
     L_pos = 0
     L_neg = 0
-    intrusion_detected = False  # Flag per evitare duplicati
+    intrusion_detected = False  
 
-    for timestamp, accum_offset in zip(timestamps, offsets):  # Senza il filtro sui timestamp
+    for timestamp, accum_offset in zip(timestamps, offsets):  
         skew, cov = rls_update_algo(accum_offset, timestamp, skew, cov)
         residual = accum_offset - timestamp * skew
         residuals.append(residual)
 
-        # Debugging opzionale
         # print(f"ID: {msg_id}, Residual: {residual}, Mu_e: {mu_e}, Sigma_e: {sigma_e}, L_pos: {L_pos}, L_neg: {L_neg}")
 
-        # Aggiornamento di mu_e e sigma_e se il valore è normale
         if abs((residual - mu_e) / sigma_e) < 3:
             recent_offsets = offsets[-window_size:] if len(offsets) >= window_size else offsets
             mu_e = np.mean(recent_offsets)
             sigma_e = np.std(recent_offsets)
 
-        # Aggiornamento di L+ e L-
-        if abs(residual - mu_e) > 0.1 * sigma_e:  # Soglia basata sulla deviazione standard
+        if abs(residual - mu_e) > 0.1 * sigma_e:  
             L_pos, L_neg = cusum_control(residual, mu_e, sigma_e, L_pos, L_neg, kappa)
-
-        # Verifica intrusioni
+       
         if not intrusion_detected and (L_pos > threshold or L_neg > threshold):
             print(f"Intrusion detected! ID: {msg_id}, L_pos: {L_pos}, L_neg: {L_neg}")
-            intrusion_detected = True  # Imposta il flag
+            intrusion_detected = True  
             break
 
     if not intrusion_detected:

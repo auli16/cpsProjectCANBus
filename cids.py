@@ -10,6 +10,7 @@ log_file = "dump/noAttackDump.log"
 if not os.path.isfile(log_file):
     print(f"Error: {log_file} does not exist.")
     sys.exit(1)
+    
 #open file and read lines, extract timestamp, id and payload
 with open (log_file) as f:
     lines = f.readlines()
