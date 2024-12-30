@@ -1,26 +1,35 @@
 import subprocess
 import time
+import os
+import signal
 
-scriptFakeECU = "./fakeECU.py"
+scriptPeriodicECU = "./periodicECU.py"
 scriptAttack = "./fabricationAttack.py"
 output_file = "../dump/fabricationDump.txt"
 
 def run_scripts():
     try:
-        fakeECU = subprocess.Popen(["python3", scriptFakeECU])
-        print("fake ECU started to send periodic messages")
+        periodicECU = subprocess.Popen(["python3", scriptPeriodicECU])
+        print("periodic ECU started to send periodic messages")
+
+        cmd_command = "candump -l vcan0"
+        candump_process = subprocess.Popen(cmd_command, shell=True, stdout=subprocess.PIPE)
+        print("Dump started")
 
         time.sleep(20)
         # the attack will start after 20 seconds
-        fab_attack = subprocess.Popen(["python3", scriptAttack])
-        print("Fabrication attack started")
+        attack = subprocess.Popen(["python3", scriptAttack])
+        print("Attack started")
 
-        time.sleep(20)
-        # 20 seconds to see the attack in action
+        time.sleep(40)
 
 
-        fakeECU.terminate()
-        fab_attack.terminate()
+        periodicECU.terminate()
+        attack.terminate()
+
+        os.kill(candump_process.pid, signal.SIGINT)
+        print("Candump stopped")
+        candump_process.wait()
 
         print("sending and attack terminated")
 

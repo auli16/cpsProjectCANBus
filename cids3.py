@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # File log path
-log_file = "dump/dump_susp.log"
+log_file = "dump/dump_masq.log"
 
 # Existence check
 if not os.path.isfile(log_file):
