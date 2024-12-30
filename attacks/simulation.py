@@ -5,7 +5,7 @@ import signal
 
 scriptPeriodicECU = "./periodicECU.py"
 scriptAttack = "./suspensionAttack.py"
-output_file = "../dump/dump_susp20sec.log"
+output_file = "../dump/dump_masq20sec.log"
 
 def run_scripts():
     try:
@@ -22,7 +22,6 @@ def run_scripts():
         print("Attack started")
 
         time.sleep(40)
-
 
         periodicECU.terminate()
         attack.terminate()

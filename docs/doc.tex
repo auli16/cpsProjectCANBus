@@ -1,5 +1,14 @@
 \documentclass[12pt]{article}
 \usepackage[backend=bibtex,style=numeric]{biblatex} 
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
 \addbibresource{references.bib} 
 
 \title{Report for the CPS Mid-Course Project}
@@ -26,7 +35,7 @@ environemnt using \textbf{ICSim}, instead of physically as shown in the paper.
 \section{System setup}
 We worked on a virtual machine with \textbf{LinuxMint22} as operating system.
 The simulator used is \textbf{ICSim}. All the code is written in \textbf{Python} and can 
-be found at the following link: .% \url{}
+be found at the following link: \href{https://github.com/auli16/cpsProjectCANBus}{https://github.com/auli16/cpsProjectCANBus}.
 We used the \textbf{can library} to create messages and to simulate the communication of the attackers with 
 the ECUs.
 The procedure to run the code is the following:
@@ -39,8 +48,15 @@ The procedure to run the code is the following:
     ./controls vcan0   //control panel
     candump -l vcan0   //dump the messages in a file
     \end{verbatim}
-    \item Run the script \textit{periodicECU.py} to emulate the periodic messages of the ECUs;
-    \item Run the script of the attack you want to perform.
+    \item Run \textit{simulation.py} to create a dump of the CAN bus messages:
+    \begin{enumerate}
+        \item Select which attack to perform by changing the variable \textit{scriptAttack};
+        \item Initially the script will run the periodic ECU and also the candump command
+        will start;
+        \item After 20 seconds will begin the attack;
+        \item All the processes will be closed after 40 seconds after the beginning of the attack.
+    \end{enumerate}
+    
 \end{enumerate}
 \section{Experiments}
 For each attack we are assuming that the attacker is already in the system and is able to send messages to 
@@ -85,37 +101,61 @@ parts:
     and the skew;
     \item CUSUM algorithm: we've implemented the CUSUM algorithm to detect the intrusion. 
 \end{enumerate}
-Given the Id in which we are interested, as return we will get an indication of whether the ECU is
+Given the ID in which we are interested, as return we will get an indication of whether the ECU is
 compromised or not.
 \section{Results and Discussion}
 As said before we've implemented the three attacks and the CIDS algorithm in a simulation environment.
 We've taken different dumps of the CAN bus messages and we've analyzed them with the CIDS algorithm. 
-The parameters we used are the following:
+The parameters which we've finetuned are the following:
 \begin{itemize}
-    \item The threshold for the CUSUM algorithm is set to 5, it is used to understand if we can consider a certain 
+    \item \textbf{threshold}: for the CUSUM algorithm is set to 5, it is used to understand if we can consider a certain 
     value as an intrusion or not;
-    \item kappa is a value which also is used to make the system more or less sensitive to the offsets.
+    \item \textbf{kappa}: is a value which also is used to make the system more or less sensitive to the offsets;
+    \item \textbf{window\_size}: Effectively we are trying to emulate a CIDS algorithm in real time, 
+    so we have to considere a window of messages to analyze up to a ceratin moment. We've set this value to 
+    20 in a way to consider 20 * i offset at a time, where i is the number of the iteration 
+    of the CUSUM algorithm.
 \end{itemize}
 We've got 4 dump files of the CAN bus messages:
 \begin{itemize}
     \item \textit{dump\_noAttack.log}: this is the dump of the CAN bus messages without any attack. The algorithm 
-    didn't detect any intrusion for the ID of interest (419 = 0x19B);
+    didn't detect any intrusion for the ID of interest (419 = 0x19B).
+    \begin{center}
+        \vspace{-1cm}
+        \hspace*{-2cm}
+        \includegraphics[scale=0.5]{img/LposNoAttack.png}
+    \end{center}
+    Since $L_{pos}$ does not exceeds the given threshold, 
+    we can conclude that in this dump we have no attacks for this ECU, confirming what we expected;
     \item \textit{dump\_fabr.log}: this is the dump of the CAN bus messages with the Fabbrication attack. The ID 
     of interest is detected as compromised (419 = 0x19B);
     \begin{center}
-        Intrusion detected! ID: 411, $L_{pos}$: [[5.6255332]], $L_{neg}$: 0
+        \vspace{-1cm}
+        \hspace*{-2cm}
+        \includegraphics[scale=0.5]{img/LposFabr.png}
     \end{center}
+    In the image above $L_{pos}$ exceeds the threshold after 20 seconds, therefore we have a compromised ECU. 
+    The shape of the curve characterizes a Fabrication Attack;
     \item \textit{dump\_susp.log}: this is the dump of the CAN bus messages with the Suspension 
     attack. The ID of interest is detected as compromised (411 = 0x19B);
     \begin{center}
-        Intrusion detected! ID: 411, $L_{pos}$: [[6.51188196]], $L_{neg}$: 0
+        \vspace{-0.5cm}
+        \hspace*{-2cm}
+        \includegraphics[scale=0.5]{img/LposSusp.png}
     \end{center}
+    The value of $L_{pos}$ starts to increase after 20 seconds and it follows a logarithmic behavior. The values
+    reached by $L_{pos}$ are really high due to the fact we are sending a lot of messages with the same ID.
+    CIDS is detecting an intrusion since the values are above the threshold;
     \item \textit{dump\_masq.log}: this is the dump of the CAN bus messages with the Masquerade attack. 
     The ID of interest is detected as compromised (419 = 0x19B), in this case with a lower value 
     of L with respect to the Fabbrication attack. 
     \begin{center}
-        Intrusion detected! ID: 411, $L_{pos}$: [[5.15998911]], $L_{neg}$: 0
+        \vspace{-1cm}
+        \hspace*{-2cm}
+        \includegraphics[scale=0.5]{img/LnegMasq.png}
     \end{center}
+    The initial curve is under the threshold, and the values start to grow after 40 seconds because of the implementation of the attack.
+    After that time CIDS is able to detect the variations in $L_{neg}$.
 \end{itemize}
 
 \printbibliography 
