@@ -42,7 +42,7 @@ def masq_attack(bus):
                 print(f"Fab msg: {msg}")
 
     except KeyboardInterrupt:
-        print("Stacca Stacca")
+        print("Interrupted by keyboard")
     except can.CanError as e:
         print(f"CAN error: {e}")
 
