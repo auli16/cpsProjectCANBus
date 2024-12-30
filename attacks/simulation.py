@@ -4,16 +4,16 @@ import os
 import signal
 
 scriptPeriodicECU = "./periodicECU.py"
-scriptAttack = "./masqueradeAttack.py"
-output_file = "../dump/dump_masq20sec.log"
+scriptAttack = "./suspensionAttack.py"
+output_file = "../dump/dump_susp20sec.log"
 
 def run_scripts():
     try:
         periodicECU = subprocess.Popen(["python3", scriptPeriodicECU])
         print("periodic ECU started to send periodic messages")
 
-        cmd_command = f"candump -l vcan0 > {output_file}"
-        candump_process = subprocess.Popen(cmd_command, shell=True, stdout=subprocess.PIPE)
+        cmd_command = f"candump -f {output_file} vcan0"
+        candump_process = subprocess.Popen(cmd_command, shell=True)
         print("Dump started")
 
         time.sleep(20)
