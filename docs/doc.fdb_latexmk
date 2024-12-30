@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex doc"] 1735411172 "doc.aux" "doc.bbl" "doc" 1735411382 0
-  "./doc-blx.bib" 1735411380 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
+["bibtex doc"] 1735555965 "doc.aux" "doc.bbl" "doc" 1735556819 0
+  "./doc-blx.bib" 1735556817 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
   "./references.bib" 1735052263 1782 4d3fc731d3069a503702f1d23c8431fb ""
   "C:/Program Files/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1679055682 65484 b7949c47a88ed6dca66ebc7a04577312 ""
-  "doc.aux" 1735411380 1337 c8de2a1212f4fcb2f6a2101163a48528 "pdflatex"
+  "doc.aux" 1735556817 1337 2dd189896da152052e1c07a59c36638d "pdflatex"
   (generated)
   "doc.bbl"
   "doc.blg"
   (rewritten before read)
-["pdflatex"] 1735411379 "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1735411382 0
+["pdflatex"] 1735556816 "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1735556819 0
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1200.tfm" 993062508 1444 95ffe0f19b974d50849790c8225c7ef7 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmbx12.tfm" 1136765053 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -61,12 +61,12 @@
   "C:/Users/User/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1704129212 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/User/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1707070132 14064 ed4998ff241d51259a76bc7f2b1bf06a ""
   "C:/Users/User/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1704129614 24214252 cc690f832350213b62e49e8eecd65268 ""
-  "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" 1735411378 6791 aa545f7305ce2dfc899580736fd134dc ""
-  "doc.aux" 1735411380 1337 c8de2a1212f4fcb2f6a2101163a48528 "pdflatex"
-  "doc.bbl" 1735411172 3046 3f0ddf98d498f18631e76a47ecffaa2b "bibtex doc"
-  "doc.run.xml" 1735411380 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
-  "doc.tex" 1735411378 6791 aa545f7305ce2dfc899580736fd134dc ""
-  "doc.toc" 1735411380 535 bf3316e6f2a97f4693516be5975d7d11 "pdflatex"
+  "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" 1735556815 7358 d5e7aa2ba6982e511edd6aa1a925bb35 ""
+  "doc.aux" 1735556817 1337 2dd189896da152052e1c07a59c36638d "pdflatex"
+  "doc.bbl" 1735555965 3046 3f0ddf98d498f18631e76a47ecffaa2b "bibtex doc"
+  "doc.run.xml" 1735556817 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
+  "doc.tex" 1735556815 7358 d5e7aa2ba6982e511edd6aa1a925bb35 ""
+  "doc.toc" 1735556817 535 9728d1f8ee74d5e0d1c4a5e158848257 "pdflatex"
   (generated)
   "doc-blx.bib"
   "doc.aux"

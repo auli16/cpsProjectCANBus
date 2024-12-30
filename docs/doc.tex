@@ -29,10 +29,23 @@ The simulator used is \textbf{ICSim}. All the code is written in \textbf{Python}
 be found at the following link: .% \url{}
 We used the \textbf{can library} to create messages and to simulate the communication of the attackers with 
 the ECUs.
+The procedure to run the code is the following:
+\begin{enumerate}
+    \item In the directory where the simulator is located:
+    \begin{verbatim}
+    ./setup_vcan.sh    //set up a virtual can interface 
+    ifconfig vcan0     //verify vcan0 interface is up
+    ./icsim vcan0      //run the simulator
+    ./controls vcan0   //control panel
+    candump -l vcan0   //dump the messages in a file
+    \end{verbatim}
+    \item Run the script \textit{periodicECU.py} to emulate the periodic messages of the ECUs;
+    \item Run the script of the attack you want to perform.
+\end{enumerate}
 \section{Experiments}
 For each attack we are assuming that the attacker is already in the system and is able to send messages to 
 several ECUs. To emulate a periodic ECU so that you can at least see something in the simulator we created 
-the script \textit{fakeECU.py} where are sent messages every 2 seconds to open and close a certain number of 
+the script \textit{periodicECU.py} where are sent messages every 2 seconds to open and close a certain number of 
 doors of the car.  
 \subsection{Fabbrication attack}
 In the Fabbrication attack we are trying to inject messages into the CAN bus to make the system behave in a 
@@ -41,10 +54,10 @@ those two seconds gap between legitimate messages we sent other commands to open
 causing it to function differently from normal behavior.
 \subsection{Suspension attack}
 In the Suspension attack we are trying to stop the receiving of messages sent by a legitimate ECU. We made 
-a DoS like attack: we sent a big quantity of messages with the ID of the left arrow into the CAN bus in order 
+a DoS like attack: we sent a big quantity of messages with the same ID of the doors into the CAN bus in order 
 to lose the messages sent by it. Here we put a very small time sleep, precisely because the aim is to clog 
-the network and not receive packets from legitimate ECUs. The result was that if we were trying to turn on 
-the left arrow, it was not working.
+the network and not receive packets from legitimate ECUs. The result was that the doors were stuck in the 
+
 \subsection{Masquerade attack}
 In the Masquerade attack we are trying to send messages with the ID of the legitimate ECUs. The idea here 
 is that we have to shield the fact that an ECU is compromised. After running the weak ecu script, the 
@@ -59,7 +72,7 @@ deriving a clock-behavioural scheme obtained by the Recursive Least Squares (RLS
 applied to timestamps and their offsets to derive covariance and skewness. Based on this scheme, 
 CIDS uses the cumulative sum to detect shifts in the clock skew, in fact the intrusion is detected 
 monitoring this parameter. We worked direcly on the dumps of the CAN bus messages obtained through 
-the command \textit{candump -l vcan0}. In each dump file we used \textit{fakeECU.py} to send periodic 
+the command \textit{candump -l vcan0}. In each dump file we used \textit{periodicECU.py} to send periodic 
 messages from the ECU \textit{0x19B}
 In the file \textit{cids.py} we implemented the algorithm, this is composed by several 
 parts:
@@ -93,9 +106,9 @@ We've got 4 dump files of the CAN bus messages:
         Intrusion detected! ID: 411, $L_{pos}$: [[5.6255332]], $L_{neg}$: 0
     \end{center}
     \item \textit{dump\_susp.log}: this is the dump of the CAN bus messages with the Suspension 
-    attack. The ID of interest is detected as compromised (392 = 0x188);
+    attack. The ID of interest is detected as compromised (411 = 0x19B);
     \begin{center}
-        Intrusion detected! ID: 392, $L_{pos}$: [[5.50396227]], $L_{neg}$: 0
+        Intrusion detected! ID: 411, $L_{pos}$: [[6.51188196]], $L_{neg}$: 0
     \end{center}
     \item \textit{dump\_masq.log}: this is the dump of the CAN bus messages with the Masquerade attack. 
     The ID of interest is detected as compromised (419 = 0x19B), in this case with a lower value 

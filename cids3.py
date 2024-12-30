@@ -1,6 +1,7 @@
 import os
 import sys
 import numpy as np
+import matplotlib.pyplot as plt
 
 # File log path
 log_file = "dump/dump_susp.log"
@@ -11,7 +12,7 @@ if not os.path.isfile(log_file):
     sys.exit(1)
 
 # Specific ID to analyze
-selected_msg_id = 0x188
+selected_msg_id = 0x19B
 
 # Reading log file
 timestamps_by_id = {}
@@ -83,6 +84,10 @@ L_pos = 0
 L_neg = 0
 intrusion_detected = False  
 
+L_pos_values = []
+L_neg_values = []
+time_values = []
+
 for timestamp, accum_offset in zip(timestamps, offsets):  
     skew, cov = rls_update_algo(accum_offset, timestamp, skew, cov)
     residual = accum_offset - timestamp * skew
@@ -95,6 +100,10 @@ for timestamp, accum_offset in zip(timestamps, offsets):
 
     if abs(residual - mu_e) > 0.1 * sigma_e:  
         L_pos, L_neg = cusum_control(residual, mu_e, sigma_e, L_pos, L_neg, kappa)
+
+    L_pos_values.append(L_pos.item() if isinstance(L_pos, np.ndarray) else L_pos)
+    L_neg_values.append(L_neg.item() if isinstance(L_neg, np.ndarray) else L_neg)
+    time_values.append(timestamp - timestamps[0])
     
     if not intrusion_detected and (L_pos > threshold or L_neg > threshold):
         print(f"Intrusion detected! ID: {selected_msg_id}, L_pos: {L_pos}, L_neg: {L_neg}")
@@ -103,3 +112,21 @@ for timestamp, accum_offset in zip(timestamps, offsets):
 
 if not intrusion_detected:
     print(f"No intrusion detected for ID: {selected_msg_id}")
+
+plt.figure(figsize=(12, 6))
+plt.plot(time_values, L_pos_values, label='L_pos', color='blue')
+plt.title('Cumulative Sum (L_pos) vs. Time')
+plt.xlabel('Time (s)')
+plt.ylabel('L_pos')
+plt.grid()
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(12, 6))
+plt.plot(time_values, L_neg_values, label='L_neg', color='red')
+plt.title('Cumulative Sum (L_neg) vs. Time')
+plt.xlabel('Time (s)')
+plt.ylabel('L_neg')
+plt.grid()
+plt.legend()
+plt.show()
