@@ -5,4 +5,4 @@ It includes studies and implementations related to:
 - **CIDS (Cyber-Physical Intrusion Detection Systems)**  
 
 ## Documentation  
-All details and instructions are available in [doc.pdf](./doc/doc.pdf).
+All details and instructions are available in [doc.pdf](./docs/doc.pdf).
