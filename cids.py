@@ -50,14 +50,35 @@ offsets = timestamps - expected_time
 
 # RLS
 def rls_update_algo(clock_offset_accum, time, skew_prev, cov_prev, lambda_val=0.9995):
+    '''
+    Recursive Least Squares (RLS) algorithm for clock skew estimation.
+
+    Parameters:
+    clock_offset_accum: Accumulated clock offset.
+    time: Time value.
+    skew_prev: Previous skew value.
+    cov_prev: Previous covariance value.
+    lambda_val: Forgetting factor.
+    '''
     time = np.array([[time]])
-    G = lambda_val ** -1 * cov_prev @ time / (1 + lambda_val ** -1 * time.T @ cov_prev @ time)
+    G = lambda_val ** -1 * cov_prev @ time / (1 + lambda_val ** -1 * time.T @ cov_prev @ time) # gain calculation
     skew = skew_prev + G.flatten()[0] * (clock_offset_accum - time.T @ skew_prev)
     cov = lambda_val ** -1 * (cov_prev - G @ time.T @ cov_prev)
     return skew, cov
 
 # Skew and CUSUM
 def cusum_control(e, mu_e, sigma_e, L_pos, L_neg, kappa):
+    '''
+    CUSUM control algorithm for intrusion detection.
+
+    Parameters:
+    e: Residual value.
+    mu_e: Mean of the residuals.
+    sigma_e: Standard deviation of the residuals.
+    L_pos: Positive cumulative sum.
+    L_neg: Negative cumulative sum.
+    kappa: value for making the algorithm more sensitive to changes.
+    '''
     sigma_e = max(sigma_e, 1e-3)
 
     z_score = (e - mu_e) / sigma_e
@@ -107,14 +128,16 @@ for i, (timestamp, accum_offset) in enumerate(zip(timestamps, offsets), start=1)
     time_values.append(timestamp - timestamps[0])
     
     if not intrusion_detected and (L_pos > threshold or L_neg > threshold):
-        print(f"Intrusion detected! ID: {selected_msg_id}, L_pos: {L_pos}, L_neg: {L_neg}")
+        print(f"Intrusion detected! ID: {selected_msg_id}, L_pos: {L_pos}, L_neg: {L_neg}") # in order to plot the graphics comment this line
         intrusion_detected = True  
-        break
+        break # in order to plot the graphics comment this line
 
 if not intrusion_detected:
     print(f"No intrusion detected for ID: {selected_msg_id}")
 
 print(L_pos_values)
+
+# in order to plot the graphics, uncomment these lines
 
 '''
 plt.figure(figsize=(12, 6))

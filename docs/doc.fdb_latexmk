@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex doc"] 1735578810 "doc.aux" "doc.bbl" "doc" 1735578966 0
-  "./doc-blx.bib" 1735578964 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
+["bibtex doc"] 1735638659 "doc.aux" "doc.bbl" "doc" 1735639654 0
+  "./doc-blx.bib" 1735639652 342 5ba7332ec7ecc2dc9c6b1bd96e3d9aad ""
   "./references.bib" 1735052263 1782 4d3fc731d3069a503702f1d23c8431fb ""
   "C:/Program Files/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1679055682 65484 b7949c47a88ed6dca66ebc7a04577312 ""
-  "doc.aux" 1735578964 1559 6ed879de90c27874728ff6360c3ca6ba "pdflatex"
+  "doc.aux" 1735639652 1558 8fda7d0907b2da32b04088cbb96c06d6 "pdflatex"
   (generated)
   "doc.bbl"
   "doc.blg"
   (rewritten before read)
-["pdflatex"] 1735578962 "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1735578966 0
+["pdflatex"] 1735639650 "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" "doc.pdf" "doc" 1735639654 0
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1200.tfm" 993062508 1444 95ffe0f19b974d50849790c8225c7ef7 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmbx12.tfm" 1136765053 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -93,13 +93,13 @@
   "C:/Users/User/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1704129212 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/User/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1707070132 14064 ed4998ff241d51259a76bc7f2b1bf06a ""
   "C:/Users/User/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1704129614 24214252 cc690f832350213b62e49e8eecd65268 ""
-  "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" 1735578961 9341 723bb02afbc4991092b7338e234d34ed ""
-  "doc.aux" 1735578964 1559 6ed879de90c27874728ff6360c3ca6ba "pdflatex"
-  "doc.bbl" 1735578810 3046 3f0ddf98d498f18631e76a47ecffaa2b "bibtex doc"
-  "doc.out" 1735578964 1122 e2710a0a2f89868e8e85c0649fb259fe "pdflatex"
-  "doc.run.xml" 1735578964 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
-  "doc.tex" 1735578961 9341 723bb02afbc4991092b7338e234d34ed ""
-  "doc.toc" 1735578964 627 0ab6a601330a2cbcc7175fe498f4544d "pdflatex"
+  "c:/Users/User/Desktop/Universita/Magistrale/cpsProjectCANBus/docs/doc.tex" 1735639649 9408 71af58d78a6221976781b06938473cef ""
+  "doc.aux" 1735639652 1558 8fda7d0907b2da32b04088cbb96c06d6 "pdflatex"
+  "doc.bbl" 1735638659 3046 3f0ddf98d498f18631e76a47ecffaa2b "bibtex doc"
+  "doc.out" 1735639652 1117 6b77bb04f926a1c40cf58ce102d9c21a "pdflatex"
+  "doc.run.xml" 1735639652 2513 edcc0cc16a36ad93dd2c73250f38af4a "pdflatex"
+  "doc.tex" 1735639649 9408 71af58d78a6221976781b06938473cef ""
+  "doc.toc" 1735639652 626 2f72ac814ddf58bc9a6b59a50bdc812f "pdflatex"
   "img/LnegMasq.png" 1735576779 31796 a6b84e5a0f558843c7730e96a426bdfe ""
   "img/LposFabr.png" 1735576614 27012 9664c1924b126573abd4557919670bc3 ""
   "img/LposNoAttack.png" 1735576915 29116 6b0ed6bd94326b43058082747de01275 ""

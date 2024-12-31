@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.1)  30 DEC 2024 18:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.1)  31 DEC 2024 11:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -481,23 +481,23 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout5 = `doc.toc'.
 
  [2] [3] [4] [5]
-<img/LposNoAttack.png, id=83, 867.24pt x 433.62pt>
+<img/LposNoAttack.png, id=84, 867.24pt x 433.62pt>
 File: img/LposNoAttack.png Graphic file (type png)
 <use img/LposNoAttack.png>
-Package pdftex.def Info: img/LposNoAttack.png  used on input line 126.
+Package pdftex.def Info: img/LposNoAttack.png  used on input line 125.
 (pdftex.def)             Requested size: 433.61894pt x 216.80946pt.
 
-Overfull \hbox (18.69922pt too wide) in paragraph at lines 125--127
+Overfull \hbox (18.69922pt too wide) in paragraph at lines 124--126
  |  [] 
  []
 
-<img/LposFabr.png, id=85, 867.24pt x 433.62pt>
+<img/LposFabr.png, id=86, 867.24pt x 433.62pt>
 File: img/LposFabr.png Graphic file (type png)
 <use img/LposFabr.png>
-Package pdftex.def Info: img/LposFabr.png  used on input line 135.
+Package pdftex.def Info: img/LposFabr.png  used on input line 134.
 (pdftex.def)             Requested size: 433.61894pt x 216.80946pt.
 
-Overfull \hbox (18.69922pt too wide) in paragraph at lines 134--136
+Overfull \hbox (18.69922pt too wide) in paragraph at lines 133--135
  |  [] 
  []
 
@@ -505,10 +505,10 @@ Overfull \hbox (18.69922pt too wide) in paragraph at lines 134--136
 <img/LposSusp.png, id=94, 867.24pt x 433.62pt>
 File: img/LposSusp.png Graphic file (type png)
 <use img/LposSusp.png>
-Package pdftex.def Info: img/LposSusp.png  used on input line 144.
+Package pdftex.def Info: img/LposSusp.png  used on input line 143.
 (pdftex.def)             Requested size: 433.61894pt x 216.80946pt.
 
-Overfull \hbox (18.69922pt too wide) in paragraph at lines 143--145
+Overfull \hbox (18.69922pt too wide) in paragraph at lines 142--144
  |  [] 
  []
 
@@ -516,10 +516,10 @@ Overfull \hbox (18.69922pt too wide) in paragraph at lines 143--145
 <img/LnegMasq.png, id=101, 867.24pt x 433.62pt>
 File: img/LnegMasq.png Graphic file (type png)
 <use img/LnegMasq.png>
-Package pdftex.def Info: img/LnegMasq.png  used on input line 155.
+Package pdftex.def Info: img/LnegMasq.png  used on input line 154.
 (pdftex.def)             Requested size: 433.61894pt x 216.80946pt.
 
-Overfull \hbox (18.69922pt too wide) in paragraph at lines 154--156
+Overfull \hbox (18.69922pt too wide) in paragraph at lines 153--155
  |  [] 
  []
 
@@ -529,7 +529,7 @@ LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
  ***********
 Package rerunfilecheck Info: File `doc.out' has not changed.
-(rerunfilecheck)             Checksum: E2710A0A2F89868E8E85C0649FB259FE;1122.
+(rerunfilecheck)             Checksum: 6B77BB04F926A1C40CF58CE102D9C21A;1117.
 Package logreq Info: Writing requests to 'doc.run.xml'.
 \openout1 = `doc.run.xml'.
 
@@ -543,7 +543,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  66i,7n,81p,1936b,1210s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on doc.pdf (9 pages, 223844 bytes).
+Output written on doc.pdf (9 pages, 223697 bytes).
 PDF statistics:
  156 PDF objects out of 1000 (max. 8388607)
  31 named destinations out of 1000 (max. 500000)

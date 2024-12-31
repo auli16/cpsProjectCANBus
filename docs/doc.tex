@@ -13,8 +13,8 @@
 
 \title{Report for the CPS Mid-Course Project}
 \author{
-    Andrea Auletta \\ \texttt{andrea.auletta@studenti.unipd.it} \and
-    Niccolò Zenaro \\ \texttt{niccolo.zenaro@studenti.unipd.it}
+    Andrea Auletta - 2107158 \\ \texttt{andrea.auletta@studenti.unipd.it} \and
+    Niccolò Zenaro - 2125609 \\ \texttt{niccolo.zenaro@studenti.unipd.it}
 }
 \begin{document}
 
@@ -29,7 +29,7 @@ Cyber-Physical Systems and IoT security.
 The paper to which we refer is \textbf{\cite{Cho2016} \citetitle{Cho2016}} where is explained 
 the design of an algorithm: the CIDS (Clock-based Intrusion Detection System), that is able 
 to detect different kinds of attack. In this paper is shown the functioning of three kinds 
-of attack: the "Fabbrication attack", the "Suspension attack" and the "Masquerade attack". 
+of attack: the "Fabrication attack", the "Suspension attack" and the "Masquerade attack". 
 What we tried to do was to implement the three attacks and the CIDS algorithm in a simulation 
 environemnt using \textbf{ICSim}, instead of physically as shown in the paper.
 \section{System setup}
@@ -46,7 +46,6 @@ The procedure to run the code is the following:
     ifconfig vcan0     //verify vcan0 interface is up
     ./icsim vcan0      //run the simulator
     ./controls vcan0   //control panel
-    candump -l vcan0   //dump the messages in a file
     \end{verbatim}
     \item Run \textit{simulation.py} to create a dump of the CAN bus messages:
     \begin{enumerate}
@@ -63,8 +62,8 @@ For each attack we are assuming that the attacker is already in the system and i
 several ECUs. To emulate a periodic ECU so that you can at least see something in the simulator we created 
 the script \textit{periodicECU.py} where are sent messages every 2 seconds to open and close a certain number of 
 doors of the car.  
-\subsection{Fabbrication attack}
-In the Fabbrication attack we are trying to inject messages into the CAN bus to make the system behave in a 
+\subsection{Fabrication attack}
+In the Fabrication attack we are trying to inject messages into the CAN bus to make the system behave in a 
 different way. Essentially, we created a message with the ID of the doors in a way that in the middle of 
 those two seconds gap between legitimate messages we sent other commands to open and close the doors and 
 causing it to function differently from normal behavior.
@@ -72,11 +71,11 @@ causing it to function differently from normal behavior.
 In the Suspension attack we are trying to stop the receiving of messages sent by a legitimate ECU. We made 
 a DoS like attack: we sent a big quantity of messages with the same ID of the doors into the CAN bus in order 
 to lose the messages sent by it. Here we put a very small time sleep, precisely because the aim is to clog 
-the network and not receive packets from legitimate ECUs. The result was that the doors were stuck in the 
-
+the network and not receive packets from legitimate ECUs. The result was that the doors were stuck in the same 
+state.
 \subsection{Masquerade attack}
 In the Masquerade attack we are trying to send messages with the ID of the legitimate ECUs. The idea here 
-is that we have to shield the fact that an ECU is compromised. After running the weak ecu script, the 
+is that we have to shield the fact that an ECU is compromised. After running the weak ECU script, the 
 attacker will listen the CAN bus for 20 seconds, in this way it can calculate the period of the messages 
 sent by the weak ECU and then it will send messages with the same ID and the same period. We decided to 
 send a message to open different doors with respect to the ones opened by the weak ECU, and this can be 
@@ -88,7 +87,7 @@ deriving a clock-behavioural scheme obtained by the Recursive Least Squares (RLS
 applied to timestamps and their offsets to derive covariance and skewness. Based on this scheme, 
 CIDS uses the cumulative sum to detect shifts in the clock skew, in fact the intrusion is detected 
 monitoring this parameter. We worked direcly on the dumps of the CAN bus messages obtained through 
-the command \textit{candump -l vcan0}. In each dump file we used \textit{periodicECU.py} to send periodic 
+the command \textit{candump}. In each dump file we used \textit{periodicECU.py} to send periodic 
 messages from the ECU \textit{0x19B}
 In the file \textit{cids.py} we implemented the algorithm, this is composed by several 
 parts:
@@ -108,8 +107,8 @@ As said before we've implemented the three attacks and the CIDS algorithm in a s
 We've taken different dumps of the CAN bus messages and we've analyzed them with the CIDS algorithm. 
 The parameters which we've finetuned are the following:
 \begin{itemize}
-    \item \textbf{threshold}: for the CUSUM algorithm is set to 5, it is used to understand if we can consider a certain 
-    value as an intrusion or not;
+    \item \textbf{threshold}: for the CUSUM algorithm is set to 5, it is used to 
+    understand given a certain value if there was an intrusion or not;
     \item \textbf{kappa}: is a value which also is used to make the system more or less sensitive to the offsets;
     \item \textbf{window\_size}: Effectively we are trying to emulate a CIDS algorithm in real time, 
     so we have to considere a window of messages to analyze up to a ceratin moment. We've set this value to 
@@ -127,7 +126,7 @@ We've got 4 dump files of the CAN bus messages:
     \end{center}
     Since $L_{pos}$ does not exceeds the given threshold, 
     we can conclude that in this dump we have no attacks for this ECU, confirming what we expected;
-    \item \textit{dump\_fabr.log}: this is the dump of the CAN bus messages with the Fabbrication attack. The ID 
+    \item \textit{dump\_fabr.log}: this is the dump of the CAN bus messages with the Fabrication attack. The ID 
     of interest is detected as compromised (419 = 0x19B);
     \begin{center}
         \vspace{-1cm}
@@ -148,7 +147,7 @@ We've got 4 dump files of the CAN bus messages:
     CIDS is detecting an intrusion since the values are above the threshold;
     \item \textit{dump\_masq.log}: this is the dump of the CAN bus messages with the Masquerade attack. 
     The ID of interest is detected as compromised (419 = 0x19B), in this case with a lower value 
-    of L with respect to the Fabbrication attack. 
+    of L with respect to the Fabrication attack. 
     \begin{center}
         \vspace{-1cm}
         \hspace*{-2cm}
@@ -157,6 +156,7 @@ We've got 4 dump files of the CAN bus messages:
     The initial curve is under the threshold, and the values start to grow after 40 seconds because of the implementation of the attack.
     After that time CIDS is able to detect the variations in $L_{neg}$.
 \end{itemize}
+In conclusion we can say that we had similar results and plots to the ones shown in the reference paper. 
 
 \printbibliography 
 
